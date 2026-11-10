@@ -20,6 +20,7 @@ A speaker calls the drills, and an LED strip round the edge shows green, yellow 
 - 1680D ballistic nylon to cover the foam (one piece, about 30 × 36 in: the face plus its edges and 2 in onto the back)
 - 3M Super 77 spray adhesive (nylon to foam)
 - Wood glue
+- 4× steel corner braces, for the inside corners of the frame
 - GRK multipurpose screws for the frame. Anything screwed into the back of the face (speaker, accelerometer standoff) must be shorter than the plywood is thick, about 5/8 in, or it comes through into the foam.
 - Blue Loctite (threadlocker)
 
@@ -34,17 +35,20 @@ A speaker calls the drills, and an LED strip round the edge shows green, yellow 
 **Electronics**
 - Raspberry Pi 3B+ and a microSD card (32 GB is plenty)
 - 8-channel 5 V relay board with optocouplers, high/low-level trigger jumpers and **screw-terminal inputs** (DC+, DC−, IN1–IN8), e.g. JESSINIE or ANMBEST. The relays click each time a lamp switches; for silent switching, see [Quieter lamps](#quieter-lamps-a-mosfet-board-instead-of-relays).
-- 5 V power supply with **screw terminals**: **10 A** is enough for everything; **20 A** if you'll add the RGB surround and want it near full brightness. Avoid one with a barrel plug: barrel jacks are usually rated 3–5 A and can overheat at this current. The software limits the strip to the supply's rating minus 5 A, so tell it which you have.
+- 5 V power supply, the sealed brick kind (like a laptop charger), sold as an "LED strip power adapter": **10 A** is enough for everything; **20 A** if you'll add the RGB surround and want it near full brightness. The original build uses a Henxlco 5 V 10 A (50 W) adapter. Avoid an open-frame supply with screw terminals: its mains connections are bare, inside a box that gets hit all day. These bricks end in a 5.5 × 2.5 mm barrel plug, and barrel jacks are usually rated 3–5 A and can run hot near 10 A, so cut the plug off and crimp ring terminals onto the two leads instead (check which lead is + with a multimeter). The software limits the strip to the supply's rating minus 5 A, so tell it which you have.
 - An inline fuse holder and a 3 A fuse, for the Pi's 5 V feed (it bypasses the Pi's own fuse)
-- 7× Wago 221-415 (5-way lever connectors) for the power buses: 4 for GND, 3 for +5 V, or a pair of screw bus bars. This already covers the audio and RGB upgrades (see Power distribution below). One more small Wago to join the five target switch grounds.
-- 14 AWG wire, for the supply-to-bus feeds and the jumpers between Wagos
+- 2× screw bus bars ("marine bus bar"), one for +5 V and one for GND, with at least 14 screws on the GND bar and 11 on the +5 V bar, which already covers the audio and RGB upgrades (see Power distribution below). The original build uses a JUNXILPPD 150 A bus bar and an RVBOATPAT 275 A bus bar (14 × #8 screws). Plus ring terminals to fit their screws.
+- 1× small Wago lever connector, to join the five target switch grounds
+- 14 AWG wire, for the supply-to-bus feeds
 - 18 AWG wire, for the 5 V runs from the buses to each device
 - 22 AWG tinned stranded wire, for signals
 - Wire ferrules and a ferrule crimper, for every wire end that goes into a screw terminal
 - Screw-terminal GPIO board ("GPIO screw terminal HAT") for the Pi: clamped wires can't shake loose under impacts
-- Two small mounting plates (3D printed, thin plywood or acrylic) for the Pi and the relay board, with rubber standoffs or foam tape
+- Industrial-strength adhesive Velcro, to stick the Pi, the relay board and the power supply inside the frame. (The original build used 3D-printed plates for the boards; Velcro is easier, and it's how the supply is held.)
 - ADXL345 accelerometer breakout (e.g. Adafruit 1231) for off-target misses, with a 2.54 mm screw-terminal block soldered to its header, and a short standoff (3D printed, or a small block of wood) to mount it
-- Tape or Velcro cable ties
+- Insulated female spade connectors (quick-disconnects) for the button switch and lamp tabs, and a crimper for them. Check the tab size on your buttons (usually 4.8 mm, .187 in).
+- Wire labels (a label printer, or write-on labels)
+- Velcro cable ties and stick-on cable-tie mounts
 
 ## Tools
 - Drill and screwdrivers
@@ -62,7 +66,7 @@ A speaker calls the drills, and an LED strip round the edge shows green, yellow 
 
 ## Build the box
 
-1. **Frame.** From the plywood, make a 22 × 28 in rectangular frame, 3 in deep. Glue and screw the 24 × 30 in face on top, centred, so it overhangs the frame by 1 in all round. That reveal is where the LED strip goes. Glue and screw everything; it has to be rock solid.
+1. **Frame.** From the plywood, make a 22 × 28 in rectangular frame, 3 in deep. Glue and screw the 24 × 30 in face on top, centred, so it overhangs the frame by 1 in all round. That reveal is where the LED strip goes. Glue and screw everything, and fit a steel corner brace inside each corner; it has to be rock solid. Then drill two holes in the frame: one in the top wall, close to where the Pi will go, for the LED strip's wires (see [RGB surround](#rgb-surround)), and one in the bottom wall for the power cord.
 2. **Lay out the targets.** T3 sits at the exact centre of the face; mark the others relative to it. Offsets are in inches, as seen by the fencer facing the board:
 
    | Button | Position | Offset from centre (x right, y up) |
@@ -100,7 +104,9 @@ Each button has two independent parts, wired separately:
 - **The switch** goes straight to the Pi.
 - **The lamp** is switched by a relay.
 
-1. **Mount the boards.** Mount the Pi and the relay board inside the frame on their plates, using rubber standoffs or foam tape so impacts on the face don't travel straight into the boards. Fit the screw-terminal GPIO board on the Pi's header. Every Pi connection below goes to a screw terminal, labelled by its GPIO number or header pin. Mounting first lets you cut every wire to length.
+1. **Mount the boards.** Stick the Pi, the relay board and the power supply to the back of the face with industrial Velcro: it also cushions them, so impacts on the face don't travel straight into the boards. Put the Pi near the strip's hole in the top wall, and the supply low down, near the cord's hole in the bottom wall. Screw the two bus bars down between them (short screws). Fit the screw-terminal GPIO board on the Pi's header. Every Pi connection below goes to a screw terminal, labelled by its GPIO number or header pin. Mounting first lets you cut every wire to length.
+
+   **Or DIN rail** (a tidier option, not built yet): screw short lengths of 35 mm DIN rail to the back of the face and clip everything onto them: DIN-rail PCB mounts or cases for the Pi and the relay board, DIN terminal blocks with jumper bars for the +5 V and GND buses instead of bus bars, and a DIN-rail fuse holder for the Pi's fuse. Every part then unclips for a swap. Clips hold firmly but don't cushion like Velcro, so check nothing has worked loose after the first few sessions of hits.
 2. **Switches to the Pi.** On each button's microswitch, wire **NO** to the button's GPIO. Leave NC unconnected. Join the five target switches' **COM** wires in a small Wago and run one wire from it to ground at header pin 25 (five wires in one screw terminal won't hold). The power button's COM goes to pin 9. "GPIO n" is the label on pinout diagrams and terminal boards; the header pin is the physical position (pin 1 is at the end away from the USB ports).
 
    | Button | GPIO | Header pin | Ground |
@@ -127,14 +133,14 @@ Each button has two independent parts, wired separately:
    | IN6 (power lamp) | GPIO 2 | 3 |
 
 4. **Lamps to the relays.** Jumper the COM terminals of relays 1–6 together and feed them 5 V. Wire each lamp with one tab to its relay's **NO** terminal and the other tab to ground. Either tab can go to NO. The LED bulbs only work one way round: if a lamp doesn't light when its relay clicks, rotate the bulb 180° in its holder.
-5. **Power.** Run 14 AWG from the supply's screw terminals into two buses of Wago lever connectors, then wire out from them to each device separately (star wiring), using 18 AWG for those runs.
+5. **Power.** Run the supply's leads (14 AWG if you extend them) to the two bus bars, then wire out from them to each device separately (star wiring), using 18 AWG for those runs. Crimp a ring terminal onto every wire end that goes to a bus bar.
 
-   **Power distribution.** A Wago 221 takes one wire per slot, so chain them with short 14 AWG jumpers; each bridge uses one slot on each Wago. Label each bus. Stick the Wagos down (hot glue, foam tape, or a Wago 221-500 carrier) so they don't swing on their wires.
+   **Power distribution.** One wire per screw where you can; two ring terminals can share a screw. Label each bus bar.
 
-   | Bus | Wagos (bridged) | Connections |
+   | Bus bar | Wires | Connections |
    |---|---|---|
-   | GND | 4 → 14 slots | PSU −, Pi pins 6 + 14, relay board DC−, 6 lamp returns, audio amp GND, RGB strip ×2, level shifter: 14, full |
-   | +5 V | 3 → 11 slots | PSU +, Pi pins 2 + 4, relay board DC+, relay COM chain, audio amp VIN, RGB strip ×2, level shifter: 9, 2 spare |
+   | GND | 14 | PSU −, Pi pins 6 + 14, relay board DC−, 6 lamp returns, audio amp GND, RGB strip ×2, level shifter |
+   | +5 V | 9 (+2 spare) | PSU +, Pi pins 2 + 4, relay board DC+, relay COM chain, audio amp VIN, RGB strip ×2, level shifter |
 
    Connect now:
    - **Pi:** 5 V through the 3 A fuse to header pins 2 **and** 4, GND to pins 6 and 14. This feeds the Pi directly, bypassing its own fuse, so never plug in its micro-USB at the same time. **Before the Pi goes on the terminal board,** power the buses and check with a multimeter that the terminals for pins 2 and 4 read +5 V against pin 6, and that nothing else does. Pins 1 (3.3 V) and 3 sit right next to the 5 V pins; a stray strand there kills the Pi.
@@ -168,14 +174,14 @@ Each button has two independent parts, wired separately:
 
    The threshold must sit below your weakest hit (usually the corner farthest from the sensor) and above the 0.10 g the board makes by itself. To check it, start a Random drill and hit lit targets and the plain face, including each corner. Each target hit should count as a hit and each face hit as a miss. If some face hits don't register, lower it. If knocks on the frame count as misses, raise it.
 8. **Check the wiring** (with the software). Its wiring test lights each lamp in turn and asks which one lit, then asks you to press each button, and records which pin each one is on. So a lamp or button on the wrong pin is found and fixed in a minute, without rewiring.
-9. **Tidy.** Tie each wire run down near the board it serves, so cable weight and swing never pull on a connection.
+9. **Tidy.** Tie each wire run down near the board it serves, so cable weight and swing never pull on a connection. Label both ends of every wire. Leave a loop in the power cord just inside the bottom wall and tie it down, so a tug on the cord pulls on the frame, not on the supply.
 
 ## Hanging it
 
 How you hang it depends on what you have. Whatever you choose, the board takes repeated hits, so hold it at the top **and** the bottom (so it can't lift, swing or rattle), fix into something solid (studs, a rack, a bar; never drywall anchors), and put felt or rubber pads on the back where it touches. Set the height to suit the fencer. Some ideas:
 
 - **French cleat:** a 45° cleat screwed to the wall studs and a matching one on the back of the frame. Easy to lift off; add a block or a screw at the bottom so it can't lift when hit.
-- **Stall bars (wall bars):** the original build's plan. A hook block in each top corner of the frame (three layers of 3/4 in plywood glued together, glued into the corner, screwed through the side wall and bolted through the top wall with carriage bolts) drops over a rung. A rubber tarp strap through two holes in the bottom of the frame, hooked to a lower rung, stops it lifting.
+- **Stall bars (wall bars):** the original build's plan. A hook block in each top corner of the frame (three layers of 3/4 in plywood glued together, glued into the corner, screwed through the side wall and bolted through the top wall with carriage bolts, kept behind the LED strip) drops over a rung. A rubber tarp strap through two holes in the bottom of the frame, hooked to a lower rung, stops it lifting.
 - **Power rack or pull-up bar:** the same hooks over a crossbar, or J-hooks; strap the bottom to an upright or a lower crossbar.
 - **Straight onto the wall:** screw the frame to the studs through its top and bottom walls, or hang it from two heavy-duty hooks in studs with a strap or bracket at the bottom.
 
@@ -191,19 +197,19 @@ Both are fitted on the original build and the software drives them. Either can b
 - Wiring: BCLK → pin 12, LRC → pin 35, DIN → pin 40, VIN → +5 V bus, GND → GND bus. Leave the amp's SD pin unconnected: the board's own pull-up keeps the amp on. Connect the speaker across the amp's two outputs; neither speaker wire goes to ground.
 
 ### RGB surround
-- SK6812 RGBW LED strip, 5 V, about 2.5 m, around the frame's outer face in the 1 in reveal. The original build uses a ~30 LEDs/m strip: 77 LEDs. The software needs your strip's LED count, which LEDs sit either side of each corner (it colours the corners in Simon Says), and any LED you can't see (e.g. one buried in the cable hole), and it has a strip test to find them.
+- SK6812 RGBW LED strip, 5 V, about 2.5 m, stuck round the outside of the frame's walls, tight under the face's 1 in overhang. Its wires come in through the hole in the top wall near the Pi (box step 1), which keeps the data wire short; start the strip there. The original build uses a ~30 LEDs/m strip: 77 LEDs. The software needs your strip's LED count, which LEDs sit either side of each corner (it colours the corners in Simon Says), and any LED you can't see (e.g. one buried in the cable hole), and it has a strip test to find them.
 - 330 Ω resistor (in the data wire)
 - 1000 µF electrolytic capacitor, rated 10 V or more, across the strip's power input
 - Optional: 74AHCT125 level shifter (see wiring)
-- Wiring: data from pin 19 (GPIO 10) → 330 Ω resistor → strip DIN, with a ground wire from pin 20 run alongside it. Keep the data wire short (under ~30 cm). Power the strip from both ends off the Wago buses. Fit the capacitor at the data-input end, across + and −, with its striped (−) leg to ground: fitted backwards, it can burst.
-- **Level shifter.** The Pi's data signal is 3.3 V, a little below what the strip is specified for. Most strips work anyway over a short wire (the original build's does), but if yours glitches (random colours, flicker on the first LEDs), a 74AHCT125 boosts it to 5 V: pin 14 to +5 V and pin 7 to ground (both slots already counted in the Wago buses), pin 1 to ground, Pi pin 19 to pin 2, and pin 3 → 330 Ω → strip DIN. Tie the unused inputs (pins 5, 9 and 12) to ground.
+- Wiring: data from pin 19 (GPIO 10) → 330 Ω resistor → strip DIN, with a ground wire from pin 20 run alongside it. Keep the data wire short (under ~30 cm). Power the strip from both ends off the bus bars. Fit the capacitor at the data-input end, across + and −, with its striped (−) leg to ground: fitted backwards, it can burst.
+- **Level shifter.** The Pi's data signal is 3.3 V, a little below what the strip is specified for. Most strips work anyway over a short wire (the original build's does), but if yours glitches (random colours, flicker on the first LEDs), a 74AHCT125 boosts it to 5 V: pin 14 to +5 V and pin 7 to ground (both already counted on the bus bars), pin 1 to ground, Pi pin 19 to pin 2, and pin 3 → 330 Ω → strip DIN. Tie the unused inputs (pins 5, 9 and 12) to ground.
 
 ### Quieter lamps: a MOSFET board instead of relays
 The relays click each time a lamp switches, so a fencer can hear a target light up before seeing it. A MOSFET board switches the lamps silently. The original build still uses relays, so this swap hasn't been built and tested yet.
 - **Board:** a 6-channel optocoupler-isolated MOSFET driver board (sold as "6-channel MOSFET module / optocoupler isolation / driver board"), LR7843 MOSFETs, load side DC 5–48 V. Buy the **3.3 V signal version**, and check it really is 6 channels.
 - **Not suitable:** single LR7843 or D4184 modules (they need at least 6 V), Omron G3MB "SSR" boards (AC only), plain PC817 isolation boards (signal only, they can't power a lamp), and ULN2803 boards (they drop about 1 V, so the lamps go dim).
 - **Signal side:** set all six H/L jumpers to **H** (input high = lamp on, the same as the relays, so the software needs no change). IN1–IN6 go to the same pins as the relay inputs (GPIO 4, 5, 6, 7, 8 and 2). VCC goes to 3.3 V on header pin 1, and GND to a Pi ground.
-- **Load side:** VIN to the +5 V bus, GND to the ground bus. Each lamp: the tab that would go to a relay's NO terminal goes to OUTn+, and the tab that would go to ground goes to OUTn−. This frees the relay COM-chain slot and the six lamp-return slots on the buses.
+- **Load side:** VIN to the +5 V bus, GND to the ground bus. Each lamp: the tab that would go to a relay's NO terminal goes to OUTn+, and the tab that would go to ground goes to OUTn−. This frees seven bus connections: the relay COM chain and the six lamp returns.
 - **Before wiring all six:** measure one input's current with a multimeter (a Pi pin can supply about 16 mA, and about 50 mA across all pins), and check one lamp lights at full brightness.
 
 ## Writing your own software
