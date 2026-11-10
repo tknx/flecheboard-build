@@ -1,6 +1,6 @@
 # Building flècheboard
 
-> **Work in progress.** This is an ongoing project. Steps marked **TODO** still need filling in.
+> **Work in progress.** This is an ongoing hobby project; the guide changes as the board does.
 
 flècheboard is a wall-mounted foil training target: five lit 100 mm buttons in an X pattern, plus a small power button. A Raspberry Pi runs it. It lights targets for the fencer to hit and times every touch, and a phone shows the results. It has three drills, chosen by pressing the power button 1, 2 or 3 times:
 - **Random:** one to three targets light up; hit any of them, as fast as you can.
@@ -91,7 +91,7 @@ A speaker calls the drills, and an LED strip round the edge shows green, yellow 
    - **Power flange:** fills the 51 mm recess, with a 33.6 mm bore for the button that flares out at the top, and a 61 mm rim that sits on the foam's surface over the nylon's cut edge.
 7. **Glue the covered foam on.** Contact cement on the plywood and on the foam's back, flaps included; let both go dry to the touch. It grabs on contact and can't be slid into place afterwards, so lay dowels or wax-paper strips across the plywood, line the slab up (top edge up, edges flush, each hole over its button hole), then pull the dowels out from the centre outwards, pressing as you go. Let it cure for 24 hours.
 8. **Grip the caps.** Cut a circle of clear skateboard grip tape for each 100 mm target cap and stick it on, so a foil point catches instead of skating off.
-9. **Speaker (audio upgrade).** Fix the grille on the face over the speaker hole. Mount the speaker from behind (see [Audio](#audio)). The speaker sits close to the frame's top wall, so turn it so its mounting tabs are diagonal, or check they clear the wall.
+9. **Speaker (audio upgrade).** Fix the grille on the face over the speaker hole: it sits on the foam, screwed through into the plywood. Tighten its screws only until the grille is snug; any tighter and it presses into the foam and puckers the nylon round it. Hang the speaker behind the hole, screwed to the back of the face (see [Audio](#audio)). The speaker sits close to the frame's top wall, so turn it so its mounting tabs are diagonal, or check they clear the wall.
 10. **Fit buttons.** Fit each button from the front with its flange (step 6) over the nylon's cut edge, then fix it from behind with the button's own nut. Put a drop of blue Loctite on each thread so the nuts don't shake loose under hits. Check each button clicks freely with a normal foil touch. To replace a button later, undo its nut from behind and lift the button and flange out from the front; the nylon stays as it is.
 
 ## Electronics
@@ -172,7 +172,12 @@ Each button has two independent parts, wired separately:
 
 ## Hanging it
 
-**TODO.** The plan: two hooks, each a block glued up from three layers of 3/4 in plywood, glued into the frame's top corners, screwed through the side wall and held by carriage bolts through the top wall, hang the board on a stall bar (wall bars). A rubber strap from the bottom of the frame to a lower rung stops it lifting when it's hit. Drawings to follow.
+How you hang it depends on what you have. Whatever you choose, the board takes repeated hits, so hold it at the top **and** the bottom (so it can't lift, swing or rattle), fix into something solid (studs, a rack, a bar; never drywall anchors), and put felt or rubber pads on the back where it touches. Set the height to suit the fencer. Some ideas:
+
+- **French cleat:** a 45° cleat screwed to the wall studs and a matching one on the back of the frame. Easy to lift off; add a block or a screw at the bottom so it can't lift when hit.
+- **Stall bars (wall bars):** the original build's plan. A hook block in each top corner of the frame (three layers of 3/4 in plywood glued together, glued into the corner, screwed through the side wall and bolted through the top wall with carriage bolts) drops over a rung. A rubber tarp strap through two holes in the bottom of the frame, hooked to a lower rung, stops it lifting.
+- **Power rack or pull-up bar:** the same hooks over a crossbar, or J-hooks; strap the bottom to an upright or a lower crossbar.
+- **Straight onto the wall:** screw the frame to the studs through its top and bottom walls, or hang it from two heavy-duty hooks in studs with a strap or bracket at the bottom.
 
 ## Additional upgrades
 

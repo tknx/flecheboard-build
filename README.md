@@ -19,4 +19,4 @@ The build guide and the flange files are licensed under [CC BY-NC-SA 4.0](https:
 
 ## Status
 
-Work in progress. The board is built and in use; how to hang it on the wall is still to come.
+Work in progress. The board is built and in use, and the guide changes as the board does.
